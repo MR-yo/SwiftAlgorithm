@@ -18,15 +18,16 @@ import Foundation
 
 
 /** 链表相关 */
-var myList = List(count: 10)
+var myList = List(count: 9)
 //myList.reversePrintList1(listHead: myList.head)
 //myList.reversePrintList2(listHead: myList.head)
 
-var testNode = myList.head?.next
-myList.deleteNode(node: &testNode)
-myList.printList()
+var testNode = myList.head?.next?.next
+//myList.deleteNode(node: &testNode)
+//myList.printList()
 
-
+myList.reverseList1(headNode: myList.head!)
+myList.reverseList2(headNode: myList.tail!)
 
 
 

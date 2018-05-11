@@ -12,6 +12,10 @@ import Foundation
  * **************** *
  *   链表相关算法题。  *
  * **************** *
+ * Line xx: 倒序输出链表
+ * Line xx: O(1)时间删除节点
+ * Line xx: 输出单向链表中倒数第 K 个节点
+ * Line xx: 反转链表
  */
 
 
@@ -30,46 +34,53 @@ class List {
     var tail : ListNode?
     
     // 实例化
+    init() {
+        head = nil
+        tail = nil
+    }
+    // 为了测试
     init(count : Int) {
         guard count > 0 else {
             return
         }
-        self.head = ListNode(value: 1)
+        head = ListNode(value: 0)
         var temp = head
-        for i in 2...count {
+        for i in 1...count {
             let nextNode = ListNode(value: i)
-            temp?.next = nextNode
+            temp!.next = nextNode
             temp = nextNode
+            if i == count {
+                tail = temp
+            }
         }
     }
+    
     // 链表尾部插入一个节点
-    func appendToTail( node: Int) -> Void {
+    func appendToTail( node: ListNode) -> Void {
         if tail == nil {
-            tail = ListNode(value: node)
-            head = tail
+            head = node
         }else{
-            tail!.next = ListNode(value: node)
+            tail!.next = node
             tail = tail!.next
         }
     }
     // 链表头部插入一个节点
-    func appendToHead( node: Int) -> Void {
+    func appendToHead( node: ListNode) -> Void {
         if head == nil {
-            head = ListNode(value: node)
-            tail = head
+            head = node
+            tail = nil
         }else{
-            let temp = ListNode(value: node)
-            temp.next = head
-            head! = temp
+            node.next = head
+            head! = node
         }
     }
     // 打印链表
-    func printList() -> Void {
+    func printList(headNode: ListNode) -> Void {
         var nodeStr = ""
-        var temp = self.head
+        var temp : ListNode? = headNode
         while temp != nil {
             nodeStr.append(String(temp!.value) + "->")
-            temp = temp?.next
+            temp = temp!.next
         }
         print(nodeStr)
     }
@@ -157,6 +168,45 @@ extension List {
 }
 
 
+/**
+ * 题目：反转链表
+ * 分析：1.直接操作指针反转。注意要保留一个节点的前后节点，不然会断链
+ *      2.新建一条链表，遍历压入节点
+ */
+extension List {
+    func reverseList1(headNode : ListNode) -> Void {
+        guard headNode.next != nil else {
+            return
+        }
+        var temp : ListNode? = headNode
+        var preNode : ListNode?
+        while temp != nil {
+            // 得到下一个节点
+            let nextNode = temp!.next
+            // 当前节点指向前一个节点
+            temp?.next = preNode
+            // 赋值前一个节点
+            preNode = temp
+            // 修改当前节点
+            temp = nextNode
+        }
+        printList(headNode: preNode!)
+    }
+    
+    func reverseList2(headNode : ListNode) -> Void {
+        guard headNode.next != nil else {
+            return
+        }
+        let newList = List()
+        var temp : ListNode? = headNode
+        while temp != nil {
+            let node = ListNode(value: temp!.value)
+            newList.appendToHead(node: node)
+            temp = temp!.next
+        }
+        newList.printList(headNode: newList.head!)
+    }
+}
 
 
 
