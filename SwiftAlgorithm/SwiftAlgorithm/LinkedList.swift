@@ -28,6 +28,20 @@ class ListNode {
 class List {
     var head : ListNode?
     var tail : ListNode?
+    
+    // 实例化
+    init(count : Int) {
+        guard count > 0 else {
+            return
+        }
+        self.head = ListNode(value: 1)
+        var temp = head
+        for i in 2...count {
+            let nextNode = ListNode(value: i)
+            temp?.next = nextNode
+            temp = nextNode
+        }
+    }
     // 链表尾部插入一个节点
     func appendToTail( node: Int) -> Void {
         if tail == nil {
@@ -49,26 +63,15 @@ class List {
             head! = temp
         }
     }
-}
-
-class LinkedList : NSObject {
-    var nodeList : List?
-    var headNode : ListNode?
-    
-    override init() {
-        nodeList = List()
-        headNode = ListNode(value: 1)
-    }
-    
-    init(count : Int) {
-        self.headNode = ListNode(value: 1)
-        var temp = headNode
-        for i in 2...count {
-            let nextNode = ListNode(value: i)
-            temp?.next = nextNode
-            temp = nextNode
+    // 打印链表
+    func printList() -> Void {
+        var nodeStr = ""
+        var temp = self.head
+        while temp != nil {
+            nodeStr.append(String(temp!.value) + "->")
+            temp = temp?.next
         }
-        self.nodeList?.head = self.headNode
+        print(nodeStr)
     }
 }
 
@@ -78,7 +81,7 @@ class LinkedList : NSObject {
  *      2.考虑借助一个栈
  *      3.考虑先反转链表再输出(单独算一题)
  */
-extension LinkedList {
+extension List {
     func reversePrintList1 (listHead : ListNode?) -> Void{
         if listHead != nil && listHead?.next != nil {
             reversePrintList1(listHead: listHead!.next)
@@ -111,17 +114,47 @@ extension LinkedList {
 
 
 /**
- * 题目：在O(1)时间删除单项链表节点
- * 分析：
+ * 题目：在O(1)时间删除单项链表节点 例：a->b->c->d->e,删除 c
+ * 分析：1.O(n)：遍历到 b，让 b 指向 d
+ *      2.O(1)：直接让 c 的值等于 d，c 指向 e，把 d 删除
+ *      3.考虑需要删除的节点是否是尾节点，尾节点只能遍历一遍
+ *      4.考虑该链表是否只有一个节点
  */
-extension LinkedList {
+extension List {
+    func deleteNode(node: inout ListNode?) -> Void {
+        guard self.head != nil || node != nil else {
+            return
+        }
+        guard self.head!.next != nil else {
+            self.head = nil
+            return
+        }
+        
+        if node!.next != nil {
+            node!.value = node!.next!.value
+            node!.next = node!.next!.next
+        }else{
+            var temp = self.head
+            while temp?.next !== node {
+                temp = temp?.next
+            }
+            temp?.next = nil
+            node = nil
+        }
+    }
+}
+
+
+/**
+ * 题目：输出单向链表中倒数第 K 个节点
+ * 分析：1.先遍历得到链表的总节点数 N，再遍历到 N-k+1 输出
+ *      2.指针1先遍历，遍历到k次后，指针2开始遍历，指针1到尾节点时，指针2刚好到倒数第 K 个节点
+ */
+extension List {
     
     
     
 }
-
-
-
 
 
 

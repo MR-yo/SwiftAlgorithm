@@ -16,8 +16,28 @@ import Foundation
  *
  */
 
-var linkedList = LinkedList(count: 10)
-linkedList.reversePrintList1(listHead: linkedList.headNode)
-linkedList.reversePrintList2(listHead: linkedList.headNode)
+
+/** 链表相关 */
+var myList = List(count: 10)
+//myList.reversePrintList1(listHead: myList.head)
+//myList.reversePrintList2(listHead: myList.head)
+
+var testNode = myList.head?.next
+myList.deleteNode(node: &testNode)
+myList.printList()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
