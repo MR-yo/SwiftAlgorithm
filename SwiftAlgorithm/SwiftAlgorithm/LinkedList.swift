@@ -101,7 +101,7 @@ extension List {
     }
     
     func reversePrintList2 (listHead : ListNode?) -> Void{
-        guard listHead != nil || listHead?.next != nil else {
+        guard listHead != nil , listHead?.next != nil else {
             return
         }
         
@@ -133,7 +133,7 @@ extension List {
  */
 extension List {
     func deleteNode(node: inout ListNode?) -> Void {
-        guard self.head != nil || node != nil else {
+        guard self.head != nil , node != nil else {
             return
         }
         guard self.head!.next != nil else {
