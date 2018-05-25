@@ -43,22 +43,22 @@ func removeDuplicates(_ nums: inout [Int]) -> Int {
 
 /**
  * 题目：买卖股票的最佳时机,给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。设计一个算法来计算你所能获取的最大利润。
- * 分析：1.
+ * 分析：1.遍历做 后一个元素减前一个元素 操作，若为正就将差值叠加，若为负就保存旧差值，再从新开始获取差值
  */
 func maxProfit(_ prices: [Int]) -> Int {
-    guard prices.count > 0 else {
+    guard prices.count > 1 else {
         return 0
     }
-    
-    var result = 0
-    var temp = prices[0]
-    for i in 1..<prices.count{
-        let p = prices[i]
-        if p - temp > 0 {
-            result += p - temp
-        }else{
-            temp = p
+    var temp : [Int] = []
+    for i in 0..<prices.count - 1 {
+        let x = prices[i + 1] - prices[i]
+        if x > 0 {
+            temp.append(x)
         }
+    }
+    var result = 0
+    for i in temp {
+        result = result + i
     }
     return result
 }
@@ -160,6 +160,90 @@ func intersect(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
     return temp
 }
 
+/**
+ * 题目：给定一个非负整数组成的非空数组，在该数的基础上加一，返回一个新的数组。
+ * 分析：1.考虑到进位就行
+ */
+func plusOne(_ digits: [Int]) -> [Int] {
+    guard digits.count > 0 else {
+        return []
+    }
+    var temp = digits
+    for i in 0..<temp.count {
+        let index = temp.count - 1 - i
+        let last = temp[index]
+        if last == 9 {
+            temp.remove(at: index)
+            temp.insert(0, at: index)
+        }else{
+            temp.remove(at: index)
+            temp.insert(last + 1, at: index)
+            return temp
+        }
+    }
+    if temp.first == 0 {
+        temp.insert(1, at: 0)
+    }
+    return temp
+}
+
+
+/**
+ * 题目：给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+ * 分析：1.如果不借助一个额外的数组该怎么写
+ */
+func moveZeroes(_ nums: inout [Int]) -> Void {
+    guard nums.count > 0 else {
+        return
+    }
+    var temp : [Int] = []
+    for i in 0..<nums.count {
+        if nums[i] == 0 {
+            temp.append(i)
+        }
+    }
+    for i in 0..<temp.count {
+        let index = temp[i] - i
+        nums.remove(at: index)
+        nums.append(0)
+    }
+}
+
+/**
+ * 题目：给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。
+ * 分析：1.循环两次太弱鸡了，居然也通过了，我以为妥妥超时
+ *      2.利用 map
+ */
+func twoSum1(_ nums: [Int], _ target: Int) -> [Int] {
+    guard nums.count > 1 else {
+        return nums
+    }
+    for i in 0..<nums.count {
+        for j in 0..<nums.count {
+            if nums[i] + nums[j] == target && i != j{
+                return [i,j]
+            }
+        }
+    }
+    return nums
+}
+
+func twoSum2(_ nums: [Int], _ target: Int) -> [Int] {
+    guard nums.count > 1 else {
+        return nums
+    }
+    var map = [Int : Int]()
+    for i in 0..<nums.count {
+        let n = nums[i]
+        if map[n] == nil {
+            map[n] = 0
+            map[target - n] = 1
+        }else if map[n] == 1{
+            return [nums.index(of: target - n)!,i]
+        }
+    }
+    return []
+}
 
 
 
