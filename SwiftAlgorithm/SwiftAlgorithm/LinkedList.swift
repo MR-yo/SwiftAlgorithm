@@ -162,9 +162,25 @@ extension List {
  *      2.指针1先遍历，遍历到k次后，指针2开始遍历，指针1到尾节点时，指针2刚好到倒数第 K 个节点
  */
 extension List {
-    
-    
-    
+    func logBackNode(targetNode:ListNode?, index: Int) -> Void {
+        if index <= 0 || targetNode == nil {
+            return
+        }
+        var temp1 = targetNode
+        var temp2 = targetNode
+        for _ in 0..<index {
+            if temp1?.next != nil{
+                temp1 = temp1?.next
+            }else{
+                temp1 = nil
+                return
+            }
+        }
+        while temp1?.next != nil {
+            temp2 = temp2?.next
+            temp1 = temp1!.next
+        }
+    }
 }
 
 
@@ -209,12 +225,45 @@ extension List {
 }
 
 
-
-
-
-
-
-
+/**
+ * 题目：合并两个排序的链表
+ * 分析：1.逐个比较两个链表的第一个值，小的并入新链表，大的不变，再次比较
+ *      2.注意空链表情况
+ *      3.如果不能用一个新链表该怎么处理
+ *      4.有相等的值有关系吗
+ *      5.扩展一下，合并两个排序的数组，可能更简单一点
+ */
+func mergeTwoList(firstNode: ListNode?, secondNode: ListNode?) -> ListNode? {
+    guard firstNode != nil else {
+        return secondNode
+    }
+    guard secondNode != nil else {
+        return firstNode
+    }
+    
+    var temp1 = firstNode
+    var temp2 = secondNode
+    var nodeArray : [ListNode] = []
+    
+    while temp1 != nil && temp2 != nil {
+        if temp1!.value < temp2!.value {
+            nodeArray.append(ListNode(value: temp1!.value))
+            temp1 = temp1!.next
+        }else{
+            nodeArray.append(ListNode(value: temp2!.value))
+            temp2 = temp2!.next
+        }
+    }
+    
+    for i in 0..<nodeArray.count - 1 {
+        let node = nodeArray[i]
+        node.next = nodeArray[i + 1]
+    }
+    let lastNode = nodeArray.last
+    lastNode?.next = temp1 == nil ? temp2 : temp1
+    
+    return nodeArray[0]
+}
 
 
 

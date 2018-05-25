@@ -26,10 +26,10 @@ var testNode = myList.head?.next?.next
 //myList.deleteNode(node: &testNode)
 //myList.printList()
 
-myList.reverseList1(headNode: myList.head!)
-myList.reverseList2(headNode: myList.tail!)
+//myList.reverseList1(headNode: myList.head!)
+//myList.reverseList2(headNode: myList.tail!)
 
-
+var mergeListNode = mergeTwoList(firstNode: myList.head, secondNode: testNode)
 
 /** 二叉树相关 */
 var rootTreeNode = TreeNode(value: 0)
@@ -62,9 +62,18 @@ print("isChild = " + String(isChild))
 
 
 
+/** 数组相关 */
+var arrayTest1 = [1,2,3,3,3,4,4,5]
+print(removeDuplicates(&arrayTest1))
 
+var arrayTest2 = [7,1,5,3,6,4]
+let x = maxProfit(arrayTest2)
+print(x)
 
+var arrayTest3 = [1,2,2,3,3]
+rotate1(&arrayTest3, 3)
 
+singleNumber(arrayTest3)
 
 
 
