@@ -246,14 +246,113 @@ func twoSum2(_ nums: [Int], _ target: Int) -> [Int] {
 }
 
 
+/**
+ * 题目：判断一个 9x9 的数独是否有效
+ * 分析：1.我写的有点蠢...还好通过了..
+ *      2.时间居然还排在中等，可能是一碰到错误情况就直接返回的原因吧
+ */
+func isValidSudoku(_ board: [[Character]]) -> Bool {
+    guard board.count == 9 else {
+        return false
+    }
+    var result = false
+    
+    // 每一行
+    for i in 0..<board.count {
+        let array = board[i]
+        print(array)
+        result = hasDuplicateCharacter(array: array)
+        if result == true {
+            return !result
+        }
+    }
+    print("------------")
+    var temp : [Character] = []
+    
+    // 每一列
+    for i in 0..<9 {
+        for j in 0..<9 {
+            let array = board[j]
+            temp.append(array[i])
+        }
+        print(temp)
+        result = hasDuplicateCharacter(array: temp)
+        if result == true {
+            return !result
+        }
+        temp.removeAll()
+    }
+    print("-----------")
+    // 每个子块
+    let rangeArray : [CountableRange<Int>] = [0..<3,3..<6,6..<9]
+    for range1 in rangeArray {
+        for range2 in rangeArray {
+            for i in range1 {
+                let array = board[i]
+                let s = array[range2]
+                temp = temp + s
+            }
+            print(temp)
+            result = hasDuplicateCharacter(array: temp)
+            if result == true {
+                return !result
+            }
+            temp.removeAll()
+        }
+    }
+    
+    return result
+}
 
+func hasDuplicateCharacter(array:[Character]) -> Bool {
+    guard array.count == 9 else {
+        return false
+    }
+    var map : [Character : Int] = ["1":0,"2":0,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0]
+    for c in array {
+        if c == "." {
+            continue
+        }else{
+            if map[c] == 0 {
+                map[c] = 1
+            }else{
+                return true
+            }
+        }
+    }
+    return false
+}
 
+/**
+ * 题目：给定一个 n × n 的二维矩阵表示一个图像。将图像顺时针旋转 90 度。
+ * 分析：1.如果不能借助新的数组该怎么处理
+ */
+func rotate3(_ matrix: inout [[Int]]) {
+    guard matrix.count > 0 else {
+        return
+    }
+    var temp : [[Int]] = []
+    for i in 0..<matrix.count {
+        var newArray : [Int] = []
+        for j in 0..<matrix.count {
+            let array = matrix[matrix.count - 1 - j]
+            newArray.append(array[i])
+        }
+        temp.append(newArray)
+    }
+    matrix = temp
+}
 
+func rotate4(_ matrix: inout [[Int]]) {
+    guard matrix.count > 0 else {
+        return
+    }
+    for i in 0..<matrix.count {
+        for j in 0..<matrix.count {
 
-
-
-
-
+        }
+    }
+}
 
 
 

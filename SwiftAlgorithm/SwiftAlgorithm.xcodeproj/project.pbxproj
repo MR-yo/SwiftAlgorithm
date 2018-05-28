@@ -12,6 +12,7 @@
 		1A68054A20A547FE0057951F /* Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A68054920A547FE0057951F /* Sorting.swift */; };
 		1AA567EE20B2C8570080A432 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA567ED20B2C8570080A432 /* Tree.swift */; };
 		1AAEF6A420B7E55800A89059 /* ArrayProblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAEF6A320B7E55800A89059 /* ArrayProblem.swift */; };
+		1AAEF6A620B8297800A89059 /* StringProblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAEF6A520B8297800A89059 /* StringProblem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +34,7 @@
 		1A68054920A547FE0057951F /* Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sorting.swift; sourceTree = "<group>"; };
 		1AA567ED20B2C8570080A432 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		1AAEF6A320B7E55800A89059 /* ArrayProblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayProblem.swift; sourceTree = "<group>"; };
+		1AAEF6A520B8297800A89059 /* StringProblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringProblem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				1A68054920A547FE0057951F /* Sorting.swift */,
 				1AA567ED20B2C8570080A432 /* Tree.swift */,
 				1AAEF6A320B7E55800A89059 /* ArrayProblem.swift */,
+				1AAEF6A520B8297800A89059 /* StringProblem.swift */,
 			);
 			path = SwiftAlgorithm;
 			sourceTree = "<group>";
@@ -133,6 +136,7 @@
 			files = (
 				1A68054A20A547FE0057951F /* Sorting.swift in Sources */,
 				1AA567EE20B2C8570080A432 /* Tree.swift in Sources */,
+				1AAEF6A620B8297800A89059 /* StringProblem.swift in Sources */,
 				1A68054820A440160057951F /* LinkedList.swift in Sources */,
 				1AAEF6A420B7E55800A89059 /* ArrayProblem.swift in Sources */,
 				1A3E8CB720A43F9E006BAE59 /* main.swift in Sources */,
