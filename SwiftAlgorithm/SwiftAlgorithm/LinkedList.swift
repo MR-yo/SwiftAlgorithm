@@ -183,6 +183,33 @@ extension List {
     }
 }
 
+func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
+    guard n > 0, head != nil else {
+        return head
+    }
+    var count = 0
+    var temp = head
+    while temp != nil {
+        count = count + 1
+        temp = temp!.next
+    }
+    temp = head
+    for _ in 0..<count - n {
+        temp = temp!.next
+    }
+    if temp?.next == nil {
+        temp = head
+        for _ in 0..<count - n - 1 {
+            temp = temp!.next
+        }
+        temp?.next = nil
+        return head
+    }
+    temp!.value = temp!.next!.value
+    temp!.next = temp?.next?.next
+    return head
+}
+
 
 /**
  * 题目：反转链表

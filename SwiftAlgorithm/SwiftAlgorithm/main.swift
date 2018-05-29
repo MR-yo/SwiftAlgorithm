@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import QuartzCore
 /**
  * 心得总结
  * 1.函数必须对参数进行验证
@@ -16,7 +16,7 @@ import Foundation
 
 
 /** 链表相关 */
-var myList = List(count: 9)
+var myList = List(count: 5)
 //myList.reversePrintList1(listHead: myList.head)
 //myList.reversePrintList2(listHead: myList.head)
 
@@ -28,6 +28,9 @@ var testNode = myList.head?.next?.next
 //myList.reverseList2(headNode: myList.tail!)
 
 var mergeListNode = mergeTwoList(firstNode: myList.head, secondNode: testNode)
+
+removeNthFromEnd(myList.head, 1)
+
 
 /** 二叉树相关 */
 var rootTreeNode = TreeNode(value: 0)
@@ -75,30 +78,20 @@ let s = singleNumber(arrayTest3)
 print(s)
 
 
-let a : [[Character]] = [[".",".",".",".","5",".",".","1","."],[".","4",".","3",".",".",".",".","."],[".",".",".",".",".","3",".",".","1"],       ["8",".",".",".",".",".",".","2","."],[".",".","2",".","7",".",".",".","."],[".","1","5",".",".",".",".",".","."], [".",".",".",".",".","2",".",".","."],[".","2",".","9",".",".",".",".","."],[".",".","4",".",".",".",".",".","."]]
-
-isValidSudoku(a)
+print(reverse1(-123456789))
 
 
 
+isAnagram("anagram", "nagaram")
 
 
+isPalindrome2("0P asd dsa p0")
 
 
+strStr("hello", "ll")
 
 
+countAndSay(4)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+longestCommonPrefix(["aca","cba"])
