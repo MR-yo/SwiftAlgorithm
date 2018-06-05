@@ -407,8 +407,32 @@ func longestCommonPrefix(_ strs: [String]) -> String {
 }
 
 
-
-
+/**
+ * 题目：给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。([)] false ,{[]} true
+ * 分析：1.输入(,下一个只能是{、[、)中的一个，按这种思路来，一个个遍历肯定会超时
+ *      2.考虑栈结构，左括号就压入，右括号就判断栈顶是否是对应的左括号
+ *      3.注意最后栈需要为空，考虑只有左括号情况
+ *
+ */
+func isValid(_ s: String) -> Bool {
+    guard s.count % 2 == 0 else {
+        return false
+    }
+    let map : [Character : Character] = ["(":")","[":"]","{":"}"]
+    var stack = [Character]()
+    for c in s {
+        if c == "(" || c == "{" || c == "[" {
+            stack.append(c)
+        }else{
+            if stack.last == nil || c != map[stack.last!]  {
+                return false
+            }else{
+                stack.removeLast()
+            }
+        }
+    }
+    return true
+}
 
 
 

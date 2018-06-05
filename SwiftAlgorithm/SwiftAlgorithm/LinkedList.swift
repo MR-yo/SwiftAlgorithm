@@ -258,7 +258,8 @@ extension List {
  *      2.注意空链表情况
  *      3.如果不能用一个新链表该怎么处理
  *      4.有相等的值有关系吗
- *      5.扩展一下，合并两个排序的数组，可能更简单一点
+ *      5.好像用递归会更好
+ *      6.扩展一下，合并两个排序的数组，可能更简单一点
  */
 func mergeTwoList(firstNode: ListNode?, secondNode: ListNode?) -> ListNode? {
     guard firstNode != nil else {
@@ -291,6 +292,70 @@ func mergeTwoList(firstNode: ListNode?, secondNode: ListNode?) -> ListNode? {
     
     return nodeArray[0]
 }
+
+
+/**
+ * 题目：请判断一个链表是否为回文链表。
+ * 分析：1.
+ */
+func isPalindrome(_ head: ListNode?) -> Bool {
+    if head == nil {
+        return true
+    }
+    var arr = [Int]()
+    var temp = head
+    while temp != nil {
+        arr.append(temp!.value)
+        temp = temp!.next
+    }
+    
+    // 1.循环判断
+    let half = arr.count / 2
+    for i in 0..<half {
+        if arr[i] != arr[arr.count - i - 1] {
+            return false
+        }
+    }
+    return true
+    
+    // 2.调用系统 api
+//    if arr == arr.reversed() {
+//        return true
+//    }else{
+//        return false
+//    }
+}
+
+
+/**
+ * 题目：请判断一个链表内是否有环
+ * 分析：1.你能否不使用额外空间解决此题？
+ */
+func isListHaveLoop(head : ListNode?) -> Bool {
+    guard head != nil, head?.next == nil else {
+        return false
+    }
+    var map = [Int : ListNode]()
+    var temp = head
+    while (temp != nil) {
+        if (map[temp!.value] != nil){
+            let preNode = map[temp!.value]
+            let nowNode = temp
+            let nextNode = temp!.next
+            if (preNode === nowNode || preNode === nextNode || nowNode === nextNode){
+                return true
+            }
+        }else {
+            map[temp!.value] = temp;
+        }
+        temp = temp!.next;
+    }
+    return false;
+}
+
+
+
+
 
 
 

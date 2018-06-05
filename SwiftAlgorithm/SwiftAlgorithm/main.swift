@@ -68,7 +68,7 @@ var arrayTest1 = [1,2,3,3,3,4,4,5]
 print(removeDuplicates(&arrayTest1))
 
 var arrayTest2 = [7,1,5,3,6,4]
-let x = maxProfit(arrayTest2)
+let x = maxProfit1(arrayTest2)
 print(x)
 
 var arrayTest3 = [1,2,2,3,3]
@@ -95,3 +95,33 @@ countAndSay(4)
 
 
 longestCommonPrefix(["aca","cba"])
+
+var roottree = TreeNode(value: 0)
+var tree1 = TreeNode(value: 1)
+var tree2 = TreeNode(value: 2)
+var tree3 = TreeNode(value: 3)
+var tree4 = TreeNode(value: 4)
+
+roottree.leftNode = tree1
+roottree.rightNode = tree2
+tree1.leftNode = tree3
+tree2.rightNode = tree4
+
+roottree.levelOrder(rootTreeNode)
+
+maxDepth(roottree)
+
+var nums1 = [1,2,3]
+var nums2 = [2,5,6]
+
+merge(&nums1, 3, nums2, 3)
+
+
+firstWrongVersion(n: 9)
+
+countPrimes(10)
+
+
+maxSubArray([-2,1,-3,4,-1,2,1,-5,4])
+
+rob([2,1,2,3,2])

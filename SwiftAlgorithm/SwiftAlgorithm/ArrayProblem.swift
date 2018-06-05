@@ -45,7 +45,7 @@ func removeDuplicates(_ nums: inout [Int]) -> Int {
  * 题目：买卖股票的最佳时机,给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。设计一个算法来计算你所能获取的最大利润。
  * 分析：1.遍历做 后一个元素减前一个元素 操作，若为正就将差值叠加，若为负就保存旧差值，再从新开始获取差值
  */
-func maxProfit(_ prices: [Int]) -> Int {
+func maxProfit1(_ prices: [Int]) -> Int {
     guard prices.count > 1 else {
         return 0
     }
@@ -343,16 +343,47 @@ func rotate3(_ matrix: inout [[Int]]) {
     matrix = temp
 }
 
-func rotate4(_ matrix: inout [[Int]]) {
-    guard matrix.count > 0 else {
+
+/**
+ * 题目：给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。
+ * 说明：1. 初始化 nums1 和 nums2 的元素数量分别为 m 和 n。
+ *      2. 你可以假设 nums1 有足够的空间（空间大小大于或等于 m + n）来保存 nums2 中的元素。
+ */
+func merge(_ nums1: inout [Int], _ m: Int, _ nums2: [Int], _ n: Int) -> Void {
+    if m == 0 {
+        nums1 = nums1 + nums2
         return
     }
-    for i in 0..<matrix.count {
-        for j in 0..<matrix.count {
-
+    if n == 0 {
+        return
+    }
+    var i = 0
+    var j = 0
+    var temp = [Int]()
+    while i <= m - 1 && j <= n - 1 {
+        if nums1[i] < nums2[j] {
+            temp.append(nums1[i])
+            i = i + 1
+        }else{
+            temp.append(nums2[j])
+            j = j + 1
         }
     }
+    if i == m {
+        temp = temp + nums2[j..<n]
+    }else {
+        temp = temp + nums1[i..<m]
+    }
+    nums1 = temp
 }
+
+
+
+
+
+
+
+
 
 
 

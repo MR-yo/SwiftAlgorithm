@@ -62,6 +62,9 @@ class TreeNode {
         guard treeNode != nil else {
             return
         }
+        printPreorder(treeNode: treeNode?.leftNode)
+        print(treeNode!.value)
+        printPreorder(treeNode: treeNode?.rightNode)
     }
     
     // 后序打印二叉树
@@ -69,8 +72,19 @@ class TreeNode {
         guard treeNode != nil else {
             return
         }
+        printPreorder(treeNode: treeNode?.leftNode)
+        printPreorder(treeNode: treeNode?.rightNode)
+        print(treeNode!.value)
     }
     
+    // 层序遍历
+    func levelOrder(_ root: TreeNode?) -> [[Int]] {
+        guard root != nil else {
+            return [[]]
+        }
+        
+        return [[]]
+    }
 }
 
 /**
@@ -133,6 +147,47 @@ func mirrorTree(targetTree:TreeNode?) -> Void {
     
     
 }
+
+/**
+ * 题目：输出一棵二叉树的最大深度。
+ * 分析：1.需要好好理解
+ */
+func maxDepth(_ root: TreeNode?) -> Int {
+    guard root != nil else {
+        return 0
+    }
+    let leftDeep = maxDepth(root?.leftNode) + 1
+    let rightDeep = maxDepth(root?.rightNode) + 1
+    return max(leftDeep, rightDeep)
+}
+
+
+/**
+ * 题目：给定一个二叉树，判断其是否是一个有效的二叉搜索树。
+ * 分析：1.
+ */
+func isValidBST(_ root: TreeNode?) -> Bool {
+    guard root != nil else {
+        return false
+    }
+    
+    var result : Bool = false
+    result = isValidBST(root?.leftNode)
+    result = isValidBST(root?.rightNode)
+    
+    return result
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
