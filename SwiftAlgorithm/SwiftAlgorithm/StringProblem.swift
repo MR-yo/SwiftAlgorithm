@@ -435,6 +435,46 @@ func isValid(_ s: String) -> Bool {
 }
 
 
+/**
+ * 题目：给定两个二进制字符串，返回他们的和（用二进制表示）。输入为非空字符串且只包含数字 1 和 0。
+ * 分析：1.
+ */
+func addBinary(_ a: String, _ b: String) -> String {
+    guard a.count > 0, b.count > 0 else {
+        return ""
+    }
+    var ta = a
+    var tb = b
+    var add = 0
+    var result = ""
+    
+    while ta.count != 0 || tb.count != 0 || add != 0 {
+        let sa = ta.count == 0 ? "0" : String(ta.last!)
+        let sb = tb.count == 0 ? "0" : String(tb.last!)
+        let sum = Int(sa)! + Int(sb)! + add
+        
+        result = String(sum % 2) + result
+        add = sum / 2
+        
+        if ta.count != 0 {
+            ta.removeLast()
+        }
+        if tb.count != 0 {
+            tb.removeLast()
+        }
+    }
+    return result
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

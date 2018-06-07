@@ -27,6 +27,8 @@ var testNode = myList.head?.next?.next
 //myList.reverseList1(headNode: myList.head!)
 //myList.reverseList2(headNode: myList.tail!)
 
+deleteDuplicates(myList.head)
+
 var mergeListNode = mergeTwoList(firstNode: myList.head, secondNode: testNode)
 
 removeNthFromEnd(myList.head, 1)
@@ -125,3 +127,24 @@ countPrimes(10)
 maxSubArray([-2,1,-3,4,-1,2,1,-5,4])
 
 rob([2,1,2,3,2])
+
+
+
+addBinary("11", "1")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

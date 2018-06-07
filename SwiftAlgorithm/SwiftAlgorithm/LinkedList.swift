@@ -354,9 +354,92 @@ func isListHaveLoop(head : ListNode?) -> Bool {
 }
 
 
+/**
+ * 题目：给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。
+ * 分析：1.自己的渣渣写法
+ *      2.大神写法
+ */
+func addTwoNumbers1(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+    guard l1 != nil else {
+        return l2
+    }
+    guard l2 != nil else {
+        return l1
+    }
 
+    var t1 = l1
+    var t2 = l2
+    var arr = [ListNode]()
+    while t1 != nil && t2 != nil {
+        arr.append(ListNode(value: t1!.value + t2!.value))
+        t1 = t1!.next
+        t2 = t2!.next
+    }
+    
+    if t1 == nil {
+        while t2 != nil{
+            arr.append(ListNode(value:t2!.value))
+            t2 = t2?.next
+        }
+    }else {
+        while t1 != nil{
+            arr.append(ListNode(value:t1!.value))
+            t1 = t1?.next
+        }
+    }
+    
+    for i in 0..<arr.count - 1 {
+        if arr[i].value >= 10 {
+            arr[i].value = arr[i].value % 10
+            arr[i + 1].value += 1
+        }
+    }
+    if arr.last?.value == 10 {
+        arr[arr.count - 1].value = 0
+        arr.append(ListNode(value: 1))
+    }
+    
+    for i in 0..<arr.count - 1{
+        arr[i].next = arr[i + 1]
+    }
+    return arr[0]
+}
 
+func addTwoNumbers2(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+    let resultNode = ListNode(value: 0)
+    var carryOver = 0
+    var tempNode = resultNode
+    
+    var next1 = l1
+    var next2 = l2
+    
+    while (next1 != nil) || (next2 != nil) || carryOver != 0 {
+        
+        let num = (next1 != nil ? next1!.value : 0) + (next2 != nil ? next2!.value : 0) + carryOver
+        carryOver = num / 10
+        let numNode = ListNode(value: num % 10)
+        
+        tempNode.next = numNode
+        tempNode = numNode
+        
+        next1 = next1?.next
+        next2 = next2?.next
+    }
+    
+    return resultNode.next;
+}
 
+/**
+ * 题目：给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
+ * 分析：1.
+ */
+func deleteDuplicates(_ head: ListNode?) -> ListNode? {
+    guard head != nil else {
+        return head
+    }
+
+    return head
+}
 
 
 

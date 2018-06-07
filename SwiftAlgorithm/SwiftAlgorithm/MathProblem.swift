@@ -75,6 +75,24 @@ func romanToInt(_ s: String) -> Int {
     return result
 }
 
+/**
+ * 题目：实现 int sqrt(int x) 函数。计算并返回 x 的平方根，其中 x 是非负整数。由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
+ * 分析：1.
+ */
+func mySqrt(_ x: Int) -> Int {
+    guard x >= 0 else {
+        return 0
+    }
+    var t = 0
+    while t * t <= x {
+        t += 1
+    }
+    return t - 1
+}
+
+
+
+
 
 
 
