@@ -125,8 +125,8 @@ func singleNumber(_ nums: [Int]) -> Int {
             temp[i] = 0
         }
     }
-    for (key,value) in temp {
-        if value == 0 {
+    for (key,val) in temp {
+        if val == 0 {
             return key
         }
     }
@@ -378,11 +378,342 @@ func merge(_ nums1: inout [Int], _ m: Int, _ nums2: [Int], _ n: Int) -> Void {
 }
 
 
+/**
+ * 题目：给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
+ * 说明：1.[-1, 0, 1, 2, -1, -4]  =>  [[-1, 0, 1],[-1, -1, 2]] ,结果不能重复
+ * 分析：1.不能重复的话可以先全部找出来,再用 set 去重,但是 swift set 里不能放数组
+ *      2.当然也可以在找的过程中直接去重，但是我感觉可能有点麻烦
+ *      3.两次遍历很有可能超时，如何优化(果然超时了)
+ *      4.当nums 大部分为0 时，很多都是无效遍历
+ */
+func threeSum(_ nums: [Int]) -> [[Int]] {
+    guard nums.count > 2 else {
+        return []
+    }
+    var temp = nums
+    for i in 0..<nums.count {
+        for j in i + 1..<nums.count {
+            let t = 0 - nums[i] - nums[j]
+            
+        }
+    }
+    return result
+}
+
+/**
+ * 题目：给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
+ * 分析：1.
+ */
+func generate(_ numRows: Int) -> [[Int]] {
+    guard numRows > 0 else {
+        return []
+    }
+    
+    var temp = [[1]]
+    for i in 1..<numRows {
+        let last = temp[i - 1]
+        var arr = [Int]()
+        for j in 0...i {
+            var n : Int
+            if j == 0 {
+                n = 1
+            }else if j == i {
+                n = last[j - 1]
+            }else {
+                n = last[j] + last[j - 1]
+            }
+            arr.append(n)
+        }
+        temp.append(arr)
+    }
+    
+    return temp
+}
+
+/**
+ * 题目：给定一个非负索引 k，其中 k ≤ 33，返回杨辉三角的第 k 行。
+ * 分析：1.可以像上一题那样，最后返回 last
+ *      2.也可以每次都对前一个数组做操作
+ */
+func getRow(_ rowIndex: Int) -> [Int] {
+    guard rowIndex > 0 else {
+        return [1]
+    }
+    
+    var n = 1
+    var temp = [1,1]
+    while n < rowIndex {
+        var arr = [1]
+        for i in 1..<temp.count{
+            arr.append(temp[i] + temp[i - 1])
+        }
+        arr.append(temp.last!)
+        temp = arr
+        n += 1
+    }
+    
+    return temp
+}
+
+/**
+ * 题目：给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的绝对值最大为 k。
+ * 分析：1.这道题有问题   leetcode 给参数 nums = [9,9], k=2 居然要求结果是 true， 无语
+ */
+func containsNearbyDuplicate(_ nums: [Int], _ k: Int) -> Bool {
+    guard nums.count > 1 , nums.count > k else {
+        return false
+    }
+    var map = [Int : [Int]]()
+    for i in 0..<nums.count {
+        let n = nums[i]
+        if map[n] == nil {
+            map[n] = [i]
+        }else {
+            for j in map[n]! {
+                if i - j == k {
+                    return true
+                }
+            }
+            map[n]!.append(i)
+        }
+    }
+    return false
+}
+
+/**
+ * 题目：给定一个非空数组，返回此数组中第三大的数。如果不存在，则返回数组中最大的数。要求算法时间复杂度必须是O(n)。
+ * 分析：1.
+ */
+func thirdMax(_ nums: [Int]) -> Int {
+    guard nums.count > 0 else {
+        return 0
+    }
+    var temp = [nums[0]]
+    for i in 1..<nums.count {
+        let n = nums[i]
+        if temp.contains(n) {
+            continue
+        }
+        if temp.count == 3 {
+            // 已经存在3个值
+            if n > temp[0] {
+                temp.insert(n, at: 0)
+                temp.removeLast()
+            }else if n > temp[1] {
+                temp.insert(n, at: 1)
+                temp.removeLast()
+            }else if n > temp[2] {
+                temp.insert(n, at: 2)
+                temp.removeLast()
+            }
+        }else if temp.count == 2{
+            // 已经存在2个值
+            if n > temp[0] {
+                temp.insert(n, at: 0)
+            }else if n > temp[1] {
+                temp.insert(n, at: 1)
+            }else {
+                temp.append(n)
+            }
+        }else {
+            // 已经存在1个值
+            if n > temp[0] {
+                temp.insert(n, at: 0)
+            }else{
+                temp.append(n)
+            }
+        }
+    }
+    
+    return temp.count == 3 ? temp.last! : temp.first!
+}
 
 
 
+/**
+ * 题目：给定一个范围在  1 ≤ a[i] ≤ n ( n = 数组大小 ) 的 整型数组，数组中的元素一些出现了两次，另一些只出现一次。找到所有在 [1, n] 范围之间没有出现在数组中的数字。
+ * 分析：1.用一个 count = n 的数组处理
+ */
+func findDisappearedNumbers(_ nums: [Int]) -> [Int] {
+    var temp = [Int]()
+    for _ in 0..<nums.count {
+        temp.append(0)
+    }
+    for n in nums {
+        temp[n - 1] = 1
+    }
+    var res = [Int]()
+    for i in 0..<temp.count {
+        if temp[i] == 0 {
+            res.append(i + 1)
+        }
+    }
+    return res
+}
 
 
+/**
+ * 题目：给定一个二进制数组， 计算其中最大连续1的个数。
+ * 分析：1.
+ */
+func findMaxConsecutiveOnes(_ nums: [Int]) -> Int {
+    var maxl = 0
+    var l = 0
+    for i in 0..<nums.count {
+        if nums[i] == 0 {
+            maxl = max(maxl,l)
+            l = 0
+        }else{
+            l += 1
+        }
+    }
+    return max(maxl,l)
+}
+
+/**
+ * 题目：给定一个整数数组和一个整数 k, 你需要在数组里找到不同的 k-diff 数对。这里将 k-diff 数对定义为一个整数对 (i, j), 其中 i 和 j 都是数组中的数字，且两数之差的绝对值是 k.
+ * 说明：[1, 2, 3, 4, 5], k = 1 输出: 4  解释: 数组中有四个 1-diff 数对, (1, 2), (2, 3), (3, 4) 和 (4, 5)。
+ * 分析：1.用一个 count = n 的数组处理
+ */
+func findPairs(_ nums: [Int], _ k: Int) -> Int {
+    guard k >= 0 else {
+        return 0
+    }
+    var map = [Int : Int]()
+    var res = 0
+    for i in 0..<nums.count {
+        let n = nums[i]
+        if map[n] == nil {
+            map[n] = 1
+            map[n + k] = 0
+            map[n - k] = 0
+        }else if map[n] == 0{
+            map[n] = 1
+            if map[n + k] == 1 {
+                res += 1
+            }else {
+                map[n + k] = 0
+            }
+            if map[n - k] == 1 {
+               res += 1
+            }else {
+                map[n - k] = 0
+            }
+            if k == 0 {
+                res -= 1
+            }
+        }
+    }
+    return res
+}
+
+
+/**
+ * 题目：给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+ * 说明：输入："23" 输出：["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+ * 分析：1.好像只能全部遍历？
+ */
+func letterCombinations(_ digits: String) -> [String] {
+    guard digits.count > 0 else {
+        return []
+    }
+    let map : [Character : [String]] = ["2" : ["a","b","c"],
+                                        "3" : ["d","e","f"],
+                                        "4" : ["g","h","i"],
+                                        "5" : ["j","k","l"],
+                                        "6" : ["m","n","o"],
+                                        "7" : ["p","q","r","s"],
+                                        "8" : ["t","u","v"],
+                                        "9" : ["w","x","y","z"],]
+    var temp = [String]()
+    for c in digits {
+        let array = map[c]!
+        var newTemp = [String]()
+        for t in temp {
+            var new = ""
+            for x in array {
+                new = t + x
+                newTemp.append(new)
+            }
+        }
+        temp = newTemp
+        if temp.count == 0 {
+            temp = map[digits.first!]!
+        }
+    }
+    return temp
+}
+
+
+/**
+ * 题目：给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。你的算法时间复杂度必须是 O(log n) 级别。如果数组中不存在目标值，返回 [-1, -1]。
+ * 分析：1.排序好的数组找值，一般都用二分法，不然很有可能超时
+ *      2.注意是否存在目标值
+ */
+func searchRange(_ nums: [Int], _ target: Int) -> [Int] {
+    guard nums.count > 0 else {
+        return [-1,-1]
+    }
+    guard target >= nums.first!, target <= nums.last! else {
+        return [-1,-1]
+    }
+    
+    var a = 0
+    var b = nums.count
+    while a < b {
+        let c = (a + b) / 2
+        if nums[c] < target {
+            a = c + 1
+        }else {
+            b = c
+        }
+    }
+    if nums[a] != target {
+        return [-1,-1]
+    }
+    
+    var x = 0
+    var y = nums.count
+    while x < y {
+        let c = (x + y) / 2
+        if nums[c] <= target {
+            x = c + 1
+        }else {
+            y = c
+        }
+    }
+    
+    return [a, x - 1]
+}
+
+
+
+/**
+ * 题目：给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。
+ * 分析：例如，给出 n = 3，生成结果为：
+ * [
+ * "((()))",
+ * "(()())",
+ * "(())()",
+ * "()(())",
+ * "()()()"
+ * ]
+ */
+func generateParenthesis(_ n: Int) -> [String] {
+    guard n > 0 else {
+        return []
+    }
+    guard n > 1 else {
+        return ["()"]
+    }
+    // 目前还没好的思路
+    var temp = [String]()
+    for i in 0..<n {
+        
+    }
+    
+    return temp
+}
 
 
 

@@ -20,16 +20,16 @@ import Foundation
 
 
 class TreeNode {
-    var value : Int
+    var val : Int
     var leftNode : TreeNode?
     var rightNode : TreeNode?
     
     private init() {
-        self.value = 0
+        self.val = 0
     }
     
-    init(value: Int) {
-        self.value = value
+    init(val: Int) {
+        self.val = val
     }
     
     // 前序打印二叉树
@@ -38,7 +38,7 @@ class TreeNode {
             return
         }
         // 1.递归
-//        print(treeNode!.value)
+//        print(treeNode!.val)
 //        printPreorder(treeNode: treeNode?.leftNode)
 //        printPreorder(treeNode: treeNode?.rightNode)
         // 2.借助栈
@@ -47,7 +47,7 @@ class TreeNode {
         var result : [Int] = []
         while !stack.isEmpty || temp != nil {
             if temp != nil {
-                result.append(temp!.value)
+                result.append(temp!.val)
                 stack.append(temp!)
                 temp = temp?.leftNode
             }else{
@@ -63,7 +63,7 @@ class TreeNode {
             return
         }
         printPreorder(treeNode: treeNode?.leftNode)
-        print(treeNode!.value)
+        print(treeNode!.val)
         printPreorder(treeNode: treeNode?.rightNode)
     }
     
@@ -74,7 +74,7 @@ class TreeNode {
         }
         printPreorder(treeNode: treeNode?.leftNode)
         printPreorder(treeNode: treeNode?.rightNode)
-        print(treeNode!.value)
+        print(treeNode!.val)
     }
     
     // 层序遍历
@@ -110,7 +110,7 @@ func judgeTreeA(_ treeA: TreeNode?, hasChildB treeB:TreeNode?) -> Bool {
     guard treeA != nil ,treeB != nil else {
         return false
     }
-    var result = treeA!.value == treeB!.value
+    var result = treeA!.val == treeB!.val
     if result {
         result = hasSubTree(treeA: treeA!, treeB: treeB!)
     }
@@ -130,7 +130,7 @@ func hasSubTree(treeA : TreeNode?, treeB: TreeNode?) -> Bool {
     if treeA == nil{
         return false
     }
-    if treeA!.value != treeB!.value {
+    if treeA!.val != treeB!.val {
         return false
     }
     return hasSubTree(treeA: treeA!.leftNode, treeB: treeB!.leftNode) && hasSubTree(treeA: treeA!.rightNode, treeB: treeB!.rightNode)
@@ -179,8 +179,33 @@ func isValidBST(_ root: TreeNode?) -> Bool {
 }
 
 
-
-
+/**
+ * 题目：给定两个二叉树，编写一个函数来检验它们是否相同。
+ * 分析：1.
+ */
+func isSameTree(_ p: TreeNode?, _ q: TreeNode?) -> Bool {
+    if (p == nil && q != nil) || (p != nil && q == nil){
+        return false
+    }
+    if p == nil && q == nil {
+        return true
+    }
+    if p!.val != q!.val{
+        return false
+    }
+    
+    let resultLeft = isSameTree(p?.leftNode, q?.leftNode)
+    if resultLeft == false {
+        return false
+    }
+    
+    let resultRight = isSameTree(p?.rightNode, q?.rightNode)
+    if resultRight == false {
+        return false
+    }
+    
+    return true
+}
 
 
 

@@ -431,7 +431,7 @@ func isValid(_ s: String) -> Bool {
             }
         }
     }
-    return true
+    return  stack.count == 0
 }
 
 
@@ -467,6 +467,92 @@ func addBinary(_ a: String, _ b: String) -> String {
 }
 
 
+/**
+ * 题目：给定一个字符串，找出不含有重复字符的最长子串的长度。给定 "abcabcbb" ，没有重复字符的最长子串是 "abc" ，那么长度就是3。
+ * 分析：1.遍历字符串，找到重复的就从第一个重复的 character 开始继续求 length，O(n*n) => 超时！
+ *      2.首尾两个标记，遍历一次，可惜 swift 就是超时，java 同样代码不超时，猜测 swift 字符串按下标取值比较费时
+ */
+func lengthOfLongestSubstring1(_ s: String) -> Int {
+    guard s.count > 1 else {
+        return s.count
+    }
+    var n = 0
+    var length = 0
+    var result = 0
+    var map = [Character : Int]()
+    while n < s.count {
+        let c = s[s.index(s.startIndex, offsetBy: n)]
+        if map[c] == nil {
+            map[c] = n
+            length += 1
+            n += 1
+        }else {
+            result = max(result, length)
+            length = 0
+            n = map[c]! + 1
+            map.removeAll()
+        }
+    }
+    return max(result, length)
+}
+
+func lengthOfLongestSubstring2(_ s: String) -> Int {
+    guard s.count > 1 else {
+        return s.count
+    }
+    var i = 0
+    var length = 0
+    var map = [Character : Int]()
+    for j in 0..<s.count {
+        let c = s[s.index(s.startIndex, offsetBy: j)]
+        if map[c] != nil {
+            i = max(map[c]! + 1, i)
+        }
+        length = max(length,j - i + 1)
+        map[c] = j
+    }
+    return length
+}
+
+
+
+
+/**
+ * 题目：给定两个字符串 s 和 t，它们只包含小写字母。字符串 t 由字符串 s 随机重排，然后在随机位置添加一个字母。请找出在 t 中被添加的字母。
+ * 分析：1.
+ */
+func findTheDifference(_ s: String, _ t: String) -> Character {
+    guard t.count - s.count == 1 else {
+        return " "
+    }
+    var sArray = [Int]()
+    for _ in 0..<26 {
+        sArray.append(0)
+    }
+    for c in s.utf8 {
+        let index = Int(c - 97)
+        sArray[index] += 1
+    }
+    
+    var tArray = [Int]()
+    for _ in 0..<26 {
+        tArray.append(0)
+    }
+    for c in t.utf8 {
+        let index = Int(c - 97)
+        tArray[index] += 1
+    }
+    
+    for i in 0..<26 {
+        if tArray[i] != sArray[i] {
+            let ac = i + 97
+            let c = Character(UnicodeScalar(ac)!)
+            return c
+        }
+    }
+    
+    return " "
+}
 
 
 

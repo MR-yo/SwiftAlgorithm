@@ -76,6 +76,16 @@ func romanToInt(_ s: String) -> Int {
 }
 
 /**
+ * 题目：整数转罗马数字,输入确保在 1 到 3999 的范围内。
+ * 分析：1.
+ */
+func intToRoman(_ num: Int) -> String {
+
+    return ""
+}
+
+
+/**
  * 题目：实现 int sqrt(int x) 函数。计算并返回 x 的平方根，其中 x 是非负整数。由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
  * 分析：1.
  */
@@ -90,8 +100,13 @@ func mySqrt(_ x: Int) -> Int {
     return t - 1
 }
 
-
-
+/**
+ * 题目：给定一个整数 n，返回 n! 结果尾数中零的数量。
+ * 分析：1.
+ */
+func trailingZeroes(_ n: Int) -> Int {
+    return n / 15
+}
 
 
 

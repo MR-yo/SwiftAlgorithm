@@ -21,10 +21,10 @@ import Foundation
 
 // 链表节点
 class ListNode {
-    var value : Int
+    var val : Int
     var next : ListNode?
-    init(value : Int) {
-        self.value = value
+    init(val : Int) {
+        self.val = val
         self.next = nil
     }
 }
@@ -43,10 +43,10 @@ class List {
         guard count > 0 else {
             return
         }
-        head = ListNode(value: 0)
+        head = ListNode(val: 0)
         var temp = head
         for i in 1...count {
-            let nextNode = ListNode(value: i)
+            let nextNode = ListNode(val: i)
             temp!.next = nextNode
             temp = nextNode
             if i == count {
@@ -79,7 +79,7 @@ class List {
         var nodeStr = ""
         var temp : ListNode? = headNode
         while temp != nil {
-            nodeStr.append(String(temp!.value) + "->")
+            nodeStr.append(String(temp!.val) + "->")
             temp = temp!.next
         }
         print(nodeStr)
@@ -97,7 +97,7 @@ extension List {
         if listHead != nil && listHead?.next != nil {
             reversePrintList1(listHead: listHead!.next)
         }
-        print(listHead!.value)
+        print(listHead!.val)
     }
     
     func reversePrintList2 (listHead : ListNode?) -> Void{
@@ -117,7 +117,7 @@ extension List {
         // 每次输出 last object
         var array = arrayStack
         for _ in 0..<arrayStack.count {
-            print(array.last!.value)
+            print(array.last!.val)
             array.removeLast()
         }
     }
@@ -142,7 +142,7 @@ extension List {
         }
         
         if node!.next != nil {
-            node!.value = node!.next!.value
+            node!.val = node!.next!.val
             node!.next = node!.next!.next
         }else{
             var temp = self.head
@@ -205,7 +205,7 @@ func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
         temp?.next = nil
         return head
     }
-    temp!.value = temp!.next!.value
+    temp!.val = temp!.next!.val
     temp!.next = temp?.next?.next
     return head
 }
@@ -243,7 +243,7 @@ extension List {
         let newList = List()
         var temp : ListNode? = headNode
         while temp != nil {
-            let node = ListNode(value: temp!.value)
+            let node = ListNode(val: temp!.val)
             newList.appendToHead(node: node)
             temp = temp!.next
         }
@@ -274,11 +274,11 @@ func mergeTwoList(firstNode: ListNode?, secondNode: ListNode?) -> ListNode? {
     var nodeArray : [ListNode] = []
     
     while temp1 != nil && temp2 != nil {
-        if temp1!.value < temp2!.value {
-            nodeArray.append(ListNode(value: temp1!.value))
+        if temp1!.val < temp2!.val {
+            nodeArray.append(ListNode(val: temp1!.val))
             temp1 = temp1!.next
         }else{
-            nodeArray.append(ListNode(value: temp2!.value))
+            nodeArray.append(ListNode(val: temp2!.val))
             temp2 = temp2!.next
         }
     }
@@ -305,7 +305,7 @@ func isPalindrome(_ head: ListNode?) -> Bool {
     var arr = [Int]()
     var temp = head
     while temp != nil {
-        arr.append(temp!.value)
+        arr.append(temp!.val)
         temp = temp!.next
     }
     
@@ -338,15 +338,15 @@ func isListHaveLoop(head : ListNode?) -> Bool {
     var map = [Int : ListNode]()
     var temp = head
     while (temp != nil) {
-        if (map[temp!.value] != nil){
-            let preNode = map[temp!.value]
+        if (map[temp!.val] != nil){
+            let preNode = map[temp!.val]
             let nowNode = temp
             let nextNode = temp!.next
             if (preNode === nowNode || preNode === nextNode || nowNode === nextNode){
                 return true
             }
         }else {
-            map[temp!.value] = temp;
+            map[temp!.val] = temp;
         }
         temp = temp!.next;
     }
@@ -371,32 +371,32 @@ func addTwoNumbers1(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
     var t2 = l2
     var arr = [ListNode]()
     while t1 != nil && t2 != nil {
-        arr.append(ListNode(value: t1!.value + t2!.value))
+        arr.append(ListNode(val: t1!.val + t2!.val))
         t1 = t1!.next
         t2 = t2!.next
     }
     
     if t1 == nil {
         while t2 != nil{
-            arr.append(ListNode(value:t2!.value))
+            arr.append(ListNode(val:t2!.val))
             t2 = t2?.next
         }
     }else {
         while t1 != nil{
-            arr.append(ListNode(value:t1!.value))
+            arr.append(ListNode(val:t1!.val))
             t1 = t1?.next
         }
     }
     
     for i in 0..<arr.count - 1 {
-        if arr[i].value >= 10 {
-            arr[i].value = arr[i].value % 10
-            arr[i + 1].value += 1
+        if arr[i].val >= 10 {
+            arr[i].val = arr[i].val % 10
+            arr[i + 1].val += 1
         }
     }
-    if arr.last?.value == 10 {
-        arr[arr.count - 1].value = 0
-        arr.append(ListNode(value: 1))
+    if arr.last?.val == 10 {
+        arr[arr.count - 1].val = 0
+        arr.append(ListNode(val: 1))
     }
     
     for i in 0..<arr.count - 1{
@@ -406,7 +406,7 @@ func addTwoNumbers1(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
 }
 
 func addTwoNumbers2(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
-    let resultNode = ListNode(value: 0)
+    let resultNode = ListNode(val: 0)
     var carryOver = 0
     var tempNode = resultNode
     
@@ -415,9 +415,9 @@ func addTwoNumbers2(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
     
     while (next1 != nil) || (next2 != nil) || carryOver != 0 {
         
-        let num = (next1 != nil ? next1!.value : 0) + (next2 != nil ? next2!.value : 0) + carryOver
+        let num = (next1 != nil ? next1!.val : 0) + (next2 != nil ? next2!.val : 0) + carryOver
         carryOver = num / 10
-        let numNode = ListNode(value: num % 10)
+        let numNode = ListNode(val: num % 10)
         
         tempNode.next = numNode
         tempNode = numNode
@@ -434,15 +434,35 @@ func addTwoNumbers2(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
  * 分析：1.
  */
 func deleteDuplicates(_ head: ListNode?) -> ListNode? {
-    guard head != nil else {
+    guard let h = head  else {
         return head
     }
-
-    return head
+    var temp = h
+    while temp.next != nil {
+        if temp.val == temp.next!.val {
+            temp.next = temp.next?.next
+        }else{
+            temp = temp.next!
+        }
+    }
+    return h
 }
 
-
-
+/**
+ * 题目：合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。
+ * 说明：输入:[1->4->5,1->3->4,2->6] 输出: 1->1->2->3->4->4->5->6
+ * 分析：1.没什么好的思路
+ */
+func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
+    guard lists.count > 0 else {
+        return nil
+    }
+    guard lists.count > 1 else {
+        return lists[0]
+    }
+    
+    return nil
+}
 
 
 
