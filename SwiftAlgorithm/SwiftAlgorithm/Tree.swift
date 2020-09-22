@@ -82,8 +82,25 @@ class TreeNode {
         guard root != nil else {
             return [[]]
         }
-        
-        return [[]]
+        var stack = [root!]
+        var result = [[root!.val]]
+        while !stack.isEmpty {
+            var array = [TreeNode]()
+            var valArray = [Int]()
+            for node in stack {
+                if node.leftNode != nil {
+                    array.append(node.leftNode!)
+                    valArray.append(node.leftNode!.val)
+                }
+                if node.rightNode != nil {
+                    array.append(node.rightNode!)
+                    valArray.append(node.rightNode!.val)
+                }
+            }
+            stack = array
+            result.append(valArray)
+        }
+        return result
     }
 }
 
@@ -168,16 +185,34 @@ func maxDepth(_ root: TreeNode?) -> Int {
  */
 func isValidBST(_ root: TreeNode?) -> Bool {
     guard root != nil else {
-        return false
+        return true
     }
     
-    var result : Bool = false
-    result = isValidBST(root?.leftNode)
-    result = isValidBST(root?.rightNode)
+    var temp = root
+    var stack = [TreeNode]()
+    var array = [Int]()
     
-    return result
+    while temp != nil || !stack.isEmpty {
+        
+        while temp != nil {
+            stack.append(temp!)
+            temp = temp?.leftNode
+        }
+        
+        if !stack.isEmpty {
+            temp = stack.last
+            array.append(temp!.val)
+            temp = temp!.rightNode
+            stack.removeLast()
+        }
+    }
+    
+    return array == array.sorted() && array.count == Set(array).count
 }
 
+func getLeftTreeArray(node: TreeNode?) -> Void {
+    
+}
 
 /**
  * 题目：给定两个二叉树，编写一个函数来检验它们是否相同。
@@ -208,11 +243,26 @@ func isSameTree(_ p: TreeNode?, _ q: TreeNode?) -> Bool {
 }
 
 
+/**
+ * 题目：给定一个二叉树，检查它是否是镜像对称的。
+ * 分析：1.
+ */
+func isSymmetric(_ root: TreeNode?) -> Bool {
+    guard root != nil else {
+        return false
+    }
+    return isNodeEqual(root!.leftNode,root!.rightNode)
+}
 
-
-
-
-
+func isNodeEqual(_ first: TreeNode?,_ second: TreeNode?) -> Bool {
+    if first == nil && second == nil {
+        return true
+    }
+    if first?.val != second?.val {
+        return false
+    }
+    return isNodeEqual(first?.leftNode,second?.rightNode) && isNodeEqual(first?.rightNode,second?.leftNode)
+}
 
 
 

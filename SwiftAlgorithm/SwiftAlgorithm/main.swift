@@ -46,18 +46,9 @@ treeNode2.rightNode = treeNode6
 let r1 = isSameTree(treeHead1, treeHead2)
 
 
-threeSum([-1, 0, 1, 2, -1, -4])
+print(isUgly(14))
 
 
-
-
-
-
-
-
-
-
-
-
+isPowerOfFour(-2147483648)
 
 

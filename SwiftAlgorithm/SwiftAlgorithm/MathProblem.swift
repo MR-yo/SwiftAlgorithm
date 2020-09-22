@@ -101,19 +101,95 @@ func mySqrt(_ x: Int) -> Int {
 }
 
 /**
- * 题目：给定一个整数 n，返回 n! 结果尾数中零的数量。
- * 分析：1.
+ * Excel表列序号
+ * 给定一个Excel表格中的列名称，返回其相应的列序号。
  */
-func trailingZeroes(_ n: Int) -> Int {
-    return n / 15
+func titleToNumber(_ s: String) -> Int {
+    guard s.count > 0 else {
+        return 0
+    }
+    let sArray = Array(s)
+    var result = 0
+    for i in 0..<sArray.count {
+        let c = sArray[sArray.count - 1 - i]
+        let a = Int(c.asciiValue!) - 64
+        var value = 1
+        for _ in 0..<i {
+            value = 26 * value
+        }
+        result = result + value * a
+    }
+    return result
 }
 
+func fourSumCount(_ A: [Int], _ B: [Int], _ C: [Int], _ D: [Int]) -> Int {
+    guard A.count > 0 else {
+        return 0
+    }
+    
+    var map1 = [Int: Int]()
+    for i in 0..<A.count {
+        let a = A[i]
+        for j in 0..<B.count {
+            let b = B[j]
+            let add = a + b
+            if map1[add] == nil {
+                map1[add] = 1
+            } else {
+                map1[add] = map1[add]! + 1
+            }
+        }
+    }
+    
+    var map2 = [Int: Int]()
+    for i in 0..<C.count {
+        let c = C[i]
+        for j in 0..<D.count {
+            let d = D[j]
+            let add = c + d
+            if map2[add] == nil {
+                map2[add] = 1
+            } else {
+                map2[add] = map2[add]! + 1
+            }
+        }
+    }
+    
+    var result = 0
+    for v in map1.keys {
+        if map2[0 - v] != nil {
+            result = result + map1[v]! * map2[0 - v]!
+        }
+    }
+    
+    return result
+}
 
+func isUgly(_ num: Int) -> Bool {
+    if num == 1 {
+        return true
+    }
+    var temp = num
+    while temp % 2 == 0 {
+        temp = temp / 2
+    }
+    while temp % 3 == 0 {
+        temp = temp / 3
+    }
+    while temp % 5 == 0 {
+        temp = temp / 5
+    }
+    return temp == 1
+}
 
-
-
-
-
-
-
+func isPowerOfFour(_ num: Int) -> Bool {
+    guard num > 0 else {
+        return false
+    }
+    let x = log2(Double(num))
+    if x - Double(Int(x)) > 0 {
+        return false
+    }
+    return Int(x) % 2 == 0
+}
 

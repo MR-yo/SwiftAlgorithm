@@ -555,14 +555,130 @@ func findTheDifference(_ s: String, _ t: String) -> Character {
 }
 
 
+/**
+ * 题目：给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为1000。
+ * 分析：1.反转字符串后比对
+ */
+func longestPalindrome(_ s: String) -> String {
+    guard s.count > 1 else {
+        return s
+    }
+//    let t = String(s.reversed())
+//    var temp = ""
+    return ""
+}
 
 
+/**
+ * 题目：给定一个字符串，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序
+ * 分析：1.反转字符串后比对
+ */
+func reverseWords(_ s: String) -> String {
+    guard s.count > 0 else {
+        return s
+    }
+    let arr = s.components(separatedBy: " ")
+    var t : String = ""
+    for s in arr {
+        t += s.reversed() + " "
+    }
+    t.removeLast()
+    return t
+}
 
 
+func gcdOfStrings(_ str1: String, _ str2: String) -> String {
+    guard str1.count > 0 && str2.count > 0 else {
+        return ""
+    }
+    
+    var maxChildStr = str1.count > str2.count ? str2 : str1
+    var temp = [Int]()
+    for i in 1...maxChildStr.count {
+        if maxChildStr.count % i == 0 {
+            temp.append(maxChildStr.count / i)
+        }
+    }
+    while temp.count >= 1 {
+        let length = temp.first!
+        maxChildStr = String(maxChildStr[maxChildStr.startIndex...maxChildStr.index(maxChildStr.startIndex, offsetBy: length - 1)])
+        
+        if str1.count % maxChildStr.count != 0 || str2.count % maxChildStr.count != 0 {
+            temp.removeFirst()
+            continue
+        }
+        
+        let count1 = str1.count / maxChildStr.count
+        let count2 = str2.count / maxChildStr.count
+        
+        var c1 = ""
+        for _ in 0..<count1 {
+            c1 = c1.appending(maxChildStr)
+        }
+        
+        var c2 = ""
+        for _ in 0..<count2 {
+            c2 = c2.appending(maxChildStr)
+        }
+        
+        if c1 == str1 && c2 == str2 {
+            return maxChildStr
+        }
 
+        temp.removeFirst()
+    }
+    
+    
+    return ""
+}
 
+func wordPattern(_ pattern: String, _ s: String) -> Bool {
+    guard pattern.count > 0 && s.count > 0 else {
+        return false
+    }
+    let patternArray = Array(pattern)
+    let sArray = s.components(separatedBy: " ")
+    if patternArray.count != sArray.count {
+        return false
+    }
+    var map = [Character: String]()
+    
+    for i in 0..<patternArray.count {
+        let c = patternArray[i]
+        if map[c] == nil {
+            map[c] = sArray[i]
+        } else {
+            if map[c] != sArray[i] {
+                return false
+            }
+        }
+    }
+    let values = Set(map.values)
+    return values.count == map.keys.count
+}
 
-
-
-
-
+func reverseVowels(_ s: String) -> String {
+    guard s.count > 1 else {
+        return s
+    }
+    var sArray = Array(s)
+    let map: [Character: Int] = ["a": 1, "e": 1, "i": 1, "o": 1, "u": 1, "A": 1, "E": 1, "I": 1, "O": 1, "U": 1]
+    var temp = [Int]()
+    for i in 0..<sArray.count {
+        let c = sArray[i]
+        if map[c] == 1 {
+            temp.append(i)
+        }
+    }
+    if temp.count <= 1 {
+        return s
+    }
+    for i in 0..<temp.count / 2 {
+        let index1 = temp[i]
+        let index2 = temp[temp.count - 1 - i]
+        let c = sArray[index1]
+        sArray[index1] = sArray[index2]
+        sArray[index2] = c
+    }
+    return String(sArray)
+}
