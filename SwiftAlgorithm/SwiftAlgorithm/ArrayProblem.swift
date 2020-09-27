@@ -1152,3 +1152,40 @@ func intersection(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
     }
     return Array(result)
 }
+
+func matrixReshape(_ nums: [[Int]], _ r: Int, _ c: Int) -> [[Int]] {
+    guard nums.count > 0 else {
+        return nums
+    }
+    guard nums.count * nums[0].count == r * c else {
+        return nums
+    }
+    var temp = [Int]()
+    for i in 0..<nums.count {
+        temp.append(contentsOf: nums[i])
+    }
+    var result = [[Int]]()
+    for i in 0..<r {
+        result.append(Array(temp[i * r..<(i + 1) * r]))
+    }
+    return result
+}
+
+func findLHS(_ nums: [Int]) -> Int {
+    guard nums.count > 1 else {
+        return 1
+    }
+    var map = [Int: Int]()
+    for i in 0..<nums.count {
+        let n = nums[i]
+        map[n] = map[n] == nil ? 1 : map[n]! + 1
+    }
+    var maxValue = 0
+    for n in map.keys {
+        if map[n + 1] == nil {
+            continue
+        }
+        maxValue = max(maxValue, map[n]! + map[n + 1]!)
+    }
+    return maxValue
+}

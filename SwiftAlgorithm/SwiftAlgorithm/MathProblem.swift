@@ -193,3 +193,35 @@ func isPowerOfFour(_ num: Int) -> Bool {
     return Int(x) % 2 == 0
 }
 
+func readBinaryWatch(_ num: Int) -> [String] {
+    guard num <= 10 else {
+        return []
+    }
+    if num == 0 {
+        return ["0:00"]
+    }
+    var map = [Int: Int]()
+    for i in 0...59 {
+        var count = 0
+        var temp = i
+        while temp > 0 {
+            if temp % 2 != 0 {
+                count += 1
+            }
+            temp = temp / 2
+        }
+        map[i] = count
+    }
+    var result = [String]()
+    for i in 0...11 {
+        let m = map[i]!
+        for j in 0...59 {
+            let n = map[j]!
+            if m + n == num {
+                let time = String(format: "%01d:%02d", i, j)
+                result.append(time)
+            }
+        }
+    }
+    return result
+}

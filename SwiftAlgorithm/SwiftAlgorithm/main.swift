@@ -51,4 +51,6 @@ print(isUgly(14))
 
 isPowerOfFour(-2147483648)
 
+readBinaryWatch(1)
 
+print(findLHS([1,2,3,4,5,6,7,6,5,4,3,2,1]))

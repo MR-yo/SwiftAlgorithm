@@ -682,3 +682,29 @@ func reverseVowels(_ s: String) -> String {
     }
     return String(sArray)
 }
+
+func reverseStr(_ s: String, _ k: Int) -> String {
+    guard s.count > k else {
+        return String(s.reversed())
+    }
+    let sArray = Array(s)
+    let m = s.count / (2 * k)
+    var result = ""
+    for i in 0..<m {
+        let start = i * 2 * k
+        let end = start + k
+        let temp = String(sArray[start..<end].reversed()) + String(sArray[end..<end + k])
+        result += temp
+    }
+    let left = s.count - m * 2 * k
+    let n = left / k
+    if n == 1 {
+        let temp = String(sArray[(s.count - left)..<(s.count - left + k)].reversed())
+        result += temp
+        result += String(sArray[(s.count - left - k)..<s.count])
+    } else {
+        let temp = String(sArray[(s.count - left)..<s.count].reversed())
+        result += temp
+    }
+    return result
+}
